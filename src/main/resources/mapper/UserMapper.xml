@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kaini.teachingmanager.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.kaini.teachingmanager.pojo.User">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="loginname" jdbcType="VARCHAR" property="loginname" />
+    <result column="pwd" jdbcType="VARCHAR" property="pwd" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="enrollmenttime" jdbcType="VARCHAR" property="enrollmenttime" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="lastlogintime" jdbcType="TIMESTAMP" property="lastlogintime" />
+    <result column="identity" jdbcType="SMALLINT" property="identity" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+  </resultMap>
+</mapper>

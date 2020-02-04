@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kaini.teachingmanager.mapper.LessonTypeMapper">
+  <resultMap id="BaseResultMap" type="com.kaini.teachingmanager.pojo.LessonType">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="lesson_id" jdbcType="BIGINT" property="lessonId" />
+    <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+  </resultMap>
+</mapper>
