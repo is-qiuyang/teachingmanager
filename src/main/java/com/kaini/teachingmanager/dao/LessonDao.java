@@ -1,117 +1,67 @@
 package com.kaini.teachingmanager.dao;
 
 import com.kaini.teachingmanager.mapper.LessonMapper;
-import com.kaini.teachingmanager.pojo.CategoryType;
-import org.apache.ibatis.annotations.Param;
+import com.kaini.teachingmanager.pojo.Lesson;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
+@Repository
 public class LessonDao {
     @Autowired
     private LessonMapper lessonMapper;
+    
     /**
-     * 通过分类名获取ID
-     *
-     * @param name 分类名
-     *
-     * @return {@link Long}
+     * 方法描述
+     * @ 获取所有课程
+     * @return 
+     * @date 2020/2/14
      */
-    public Long getIdByName(String name){
+    public List<Lesson> selectAllLesson(){
 
-        return null;
+        return lessonMapper.selectAll();
     }
 
     /**
-     * 添加一个分类
-     *
-     * @param name 分类名
-     *
-     * @return 是否添加成功
+     * 方法描述
+     * @ 添加一个分类
+     * @return 
+     * @date 2020/2/14
      */
-    public boolean insertCategory(String name,long lessonId){
-
-        return false;
+    public Integer insertLesson(Lesson lesson) {
+        return lessonMapper.insert(lesson);
     }
 
     /**
-     * 通过编号删除一个分类
-     *
-     * @param id 编号
-     *
-     * @return 是否删除成功
+     * 方法描述
+     * @ 批量删除
+     * @return
+     * @date 2020/2/12
      */
-    public boolean removeCategoryById(int id){
-
-        return false;
+    public Integer deleteAllLesson(List<Long> ids) {
+        Example example = new Example(Lesson.class);
+        example.createCriteria().andIn("lesson_id", ids);
+        return lessonMapper.deleteByExample(example);
     }
 
     /**
-     * 通过名称删除一个分类
-     *
-     * @param name 分类名称
-     *
-     * @return 是否删除成功
+     * 方法描述
+     * @ 模糊查询
+     * @return
+     * @date 2020/2/15
      */
-    public int removeCategoryByName(String name){
-
-        return 0;
+    public List<Lesson> selectLikeLesson(String type){
+        Example example = new Example(Lesson.class);
+        Example.Criteria criteria = example.createCriteria();
+        if (StringUtils.isNotBlank(type)){
+            type = "%" + type +"%";
+        }
+        if (StringUtils.isNotBlank(type)){
+            criteria.andLike("type",type);
+        }
+        return lessonMapper.selectByExample(criteria);
     }
-
-    /**
-     * 更新一个分类名
-     *
-     * @param name 分类名
-     * @param id 分类ID
-     *
-     * @return 是否更新成功
-     */
-    public boolean updateNameById(@Param("id") long id, @Param("name") String name){
-
-        return false;
-    }
-
-    /**
-     * 通过分类名更新分类名
-     *
-     * @param newName 新的分类名
-     * @param oldName 旧的分类名
-     */
-    public void updateNameByName(String newName, String oldName){
-
-    }
-
-    /**
-     * 获取所有分类
-     *
-     * @return {@link List}
-     */
-    public List<CategoryType> listCategory(){
-        return null;
-    }
-
-    /**
-     * 通过编号获取一个分类
-     *
-     * @param id 编号
-     *
-     * @return {@link CategoryType}
-     */
-    public CategoryType getCategoryById(long id){
-
-        return null;
-    }
-
-    /**
-     * 通过名称获取一个分类
-     *
-     * @param name 名称
-     *
-     * @return {@link CategoryType}
-     */
-    public CategoryType getCategoryByName(String name){
-        return null;
-    }
-
-
 }

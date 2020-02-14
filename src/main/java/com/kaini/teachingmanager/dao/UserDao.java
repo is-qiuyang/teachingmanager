@@ -39,4 +39,39 @@ public class UserDao {
     public int updateImg(User user){
         return userMapper.updateByPrimaryKey(user);
     }
+
+    /**
+     * 方法描述
+     * @ 用户注销
+     * @return
+     * @date 2020/2/12
+     */
+    public Integer DeleteUserByName(String name) {
+        Example userExample = new Example(User.class);
+        userExample.createCriteria().andEqualTo(name);
+        return userMapper.deleteByExample(userExample);
+    }
+
+    /**
+     * 方法描述
+     * @ 查询所有用户
+     * @return
+     * @date 2020/2/12
+     */
+    public List<User> selectAllUser() {
+        return userMapper.selectAll();
+    }
+
+
+    /**
+     * 方法描述
+     * @ 批量删除
+     * @return
+     * @date 2020/2/12
+     */
+    public int deleteAllUser(List<Long> ids) {
+        Example userExample = new Example(User.class);
+        userExample.createCriteria().andIn("id",ids);
+        return userMapper.deleteByExample(userExample);
+    }
 }

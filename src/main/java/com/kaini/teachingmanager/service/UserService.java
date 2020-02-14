@@ -1,6 +1,7 @@
 package com.kaini.teachingmanager.service;
 
 import com.kaini.teachingmanager.pojo.User;
+import com.kaini.teachingmanager.request.AddUserRequest;
 
 public interface UserService {
 
@@ -8,8 +9,9 @@ public interface UserService {
     User selectByIdPwd(String loginname, String pwd);
 
     //用户注册
-    Integer insertUser(User user);
+    Integer insertUser(AddUserRequest userRequest);
 
     int updateLastLoginTime(User user);
 
+    Integer DeleteUserByName(String name);
 }

@@ -14,17 +14,9 @@ public class Lesson {
     private Long lessonId;
 
     /**
-     * 分类ID
+     * 课程名
      */
-    @Id
-    @Column(name = "type_id")
-    private Long typeId;
-
-    /**
-     * 标题
-     */
-    @Column(name = "a_title")
-    private String aTitle;
+    private String type;
 
     /**
      * 课程简介
@@ -37,12 +29,6 @@ public class Lesson {
      */
     @Column(name = "create_date")
     private Date createDate;
-
-    /**
-     * 主题图片的URL
-     */
-    @Column(name = "image_url")
-    private String imageUrl;
 
     /**
      * 年级
@@ -68,39 +54,21 @@ public class Lesson {
     }
 
     /**
-     * 获取分类ID
+     * 获取课程名
      *
-     * @return type_id - 分类ID
+     * @return type - 课程名
      */
-    public Long getTypeId() {
-        return typeId;
+    public String getType() {
+        return type;
     }
 
     /**
-     * 设置分类ID
+     * 设置课程名
      *
-     * @param typeId 分类ID
+     * @param type 课程名
      */
-    public void setTypeId(Long typeId) {
-        this.typeId = typeId;
-    }
-
-    /**
-     * 获取标题
-     *
-     * @return a_title - 标题
-     */
-    public String getaTitle() {
-        return aTitle;
-    }
-
-    /**
-     * 设置标题
-     *
-     * @param aTitle 标题
-     */
-    public void setaTitle(String aTitle) {
-        this.aTitle = aTitle == null ? null : aTitle.trim();
+    public void setType(String type) {
+        this.type = type == null ? null : type.trim();
     }
 
     /**
@@ -137,24 +105,6 @@ public class Lesson {
      */
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
-    }
-
-    /**
-     * 获取主题图片的URL
-     *
-     * @return image_url - 主题图片的URL
-     */
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    /**
-     * 设置主题图片的URL
-     *
-     * @param imageUrl 主题图片的URL
-     */
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl == null ? null : imageUrl.trim();
     }
 
     /**
