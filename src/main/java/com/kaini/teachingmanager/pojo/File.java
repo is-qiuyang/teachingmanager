@@ -26,7 +26,7 @@ public class File {
      * 章节ID
      */
     @Column(name = "category_id")
-    private byte[] categoryId;
+    private Long categoryId;
 
     /**
      * 获取编号
@@ -87,7 +87,7 @@ public class File {
      *
      * @return category_id - 章节ID
      */
-    public byte[] getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
@@ -96,7 +96,7 @@ public class File {
      *
      * @param categoryId 章节ID
      */
-    public void setCategoryId(byte[] categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 }

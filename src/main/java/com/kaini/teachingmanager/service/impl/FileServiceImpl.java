@@ -20,7 +20,7 @@ public class FileServiceImpl implements FileService {
 
 
     @Override
-    public File findFileByName(String name) {
+    public List<File> findFileByName(String name) {
         return fileDao.findFileByName(name);
     }
 
@@ -39,7 +39,7 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public int deleteFileByCategoryId(int categoryId) {
+    public int deleteFileByCategoryId(Long categoryId) {
         return fileDao.deleteFileByCategoryId(categoryId);
     }
 

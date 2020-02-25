@@ -3,7 +3,6 @@ package com.kaini.teachingmanager.dao;
 import com.kaini.teachingmanager.mapper.FileMapper;
 import com.kaini.teachingmanager.pojo.File;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.entity.Example;
@@ -21,17 +20,17 @@ public class FileDao {
      * @return 
      * @date 2020/2/25
      */
-    public File findFileByName(String name){
+    public List<File> findFileByName(String name){
         Example example = new Example(File.class);
         Example.Criteria criteria = example.createCriteria();
         if (StringUtils.isNotBlank(name)){
             criteria.andLike("name","%" + name +"%");
         }
-        return fileMapper.selectOneByExample(example);
+        return fileMapper.selectByExample(example);
     }
 
     //通过主键批量删除文件
-    public int removeById(@Param("id") List<Long> ids){
+    public int removeById(List<Long> ids){
         Example example = new Example(File.class);
         example.createCriteria().andIn("id",ids);
         return fileMapper.deleteByExample(example);
@@ -48,9 +47,9 @@ public class FileDao {
     }
 
     //通过分类编号删除文件
-    public int deleteFileByCategoryId(int categoryId){
+    public int deleteFileByCategoryId(Long categoryId){
         Example example = new Example(File.class);
-        example.createCriteria().andEqualTo(categoryId);
+        example.createCriteria().andEqualTo("categoryId",categoryId);
         return fileMapper.deleteByExample(example);
     }
 
@@ -62,7 +61,7 @@ public class FileDao {
      */
     public List<File> selectFileByCategoryId(Long categoryId){
         Example example = new Example(File.class);
-        example.createCriteria().andEqualTo(categoryId);
+        example.createCriteria().andEqualTo("categoryId",categoryId);
         return fileMapper.selectByExample(example);
     }
 

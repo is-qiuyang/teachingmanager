@@ -8,6 +8,6 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="visit_url" jdbcType="VARCHAR" property="visitUrl" />
-    <result column="category_id" jdbcType="BINARY" property="categoryId" />
+    <result column="category_id" jdbcType="BIGINT" property="categoryId" />
   </resultMap>
 </mapper>

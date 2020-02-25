@@ -30,7 +30,7 @@ public class PointDao {
      *
      * @return 删除了多少个
      */
-    public Integer removePointByIds(@Param("id") List<Long> ids){
+    public Integer removePointByIds(List<Long> ids){
         Example example = new Example(Point.class);
         example.createCriteria().andIn("id",ids);
         return pointMapper.deleteByExample(example);
@@ -77,7 +77,7 @@ public class PointDao {
     //通过分类编号删除重点
     public int deletePointByCategoryId(int categoryId){
         Example example = new Example(Point.class);
-        example.createCriteria().andEqualTo(categoryId);
+        example.createCriteria().andEqualTo("categoryId",categoryId);
         return pointMapper.deleteByExample(example);
     }
 }

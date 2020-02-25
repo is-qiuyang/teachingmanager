@@ -14,7 +14,7 @@ public interface FileService {
      * @return
      * @date 2020/2/25
      */
-    File findFileByName(String name);
+    List<File> findFileByName(String name);
 
     //通过主键批量删除文件
     int removeById(@Param("id") List<Long> ids);
@@ -23,7 +23,7 @@ public interface FileService {
     boolean insertFile(InsertFileRequest fileRequest);
 
     //通过分类编号删除一个文件
-    int deleteFileByCategoryId(int categoryId);
+    int deleteFileByCategoryId(Long categoryId);
 
     /**
      * 方法描述

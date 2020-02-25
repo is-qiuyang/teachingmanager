@@ -6,7 +6,6 @@ import com.kaini.teachingmanager.response.SelectAllPointResponse;
 import com.kaini.teachingmanager.service.PointService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,7 +42,7 @@ public class PointController {
      */
     @ApiOperation(value = "批量删除重点")
     @RequestMapping(value = "/point/deleteSome", method = RequestMethod.POST)
-    public SzpJsonResult<String> removePointByIds(@Param("id") List<Long> ids){
+    public SzpJsonResult<String> removePointByIds(@RequestParam(value = "id") List<Long> ids){
 
         Integer integer = pointService.removePointByIds(ids);
 

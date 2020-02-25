@@ -22,5 +22,5 @@ public class InsertFileRequest {
      * 章节ID
      */
     @Column(name = "category_id")
-    private byte[] categoryId;
+    private Long categoryId;
 }
