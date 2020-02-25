@@ -11,7 +11,7 @@
     <result column="pwd" jdbcType="VARCHAR" property="pwd" />
     <result column="img" jdbcType="VARCHAR" property="img" />
     <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="enrollmenttime" jdbcType="VARCHAR" property="enrollmenttime" />
+    <result column="enrollmenttime" jdbcType="BIGINT" property="enrollmenttime" />
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
     <result column="lastlogintime" jdbcType="TIMESTAMP" property="lastlogintime" />

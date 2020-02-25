@@ -23,6 +23,12 @@ public class File {
     private String visitUrl;
 
     /**
+     * 章节ID
+     */
+    @Column(name = "category_id")
+    private byte[] categoryId;
+
+    /**
      * 获取编号
      *
      * @return id - 编号
@@ -74,5 +80,23 @@ public class File {
      */
     public void setVisitUrl(String visitUrl) {
         this.visitUrl = visitUrl == null ? null : visitUrl.trim();
+    }
+
+    /**
+     * 获取章节ID
+     *
+     * @return category_id - 章节ID
+     */
+    public byte[] getCategoryId() {
+        return categoryId;
+    }
+
+    /**
+     * 设置章节ID
+     *
+     * @param categoryId 章节ID
+     */
+    public void setCategoryId(byte[] categoryId) {
+        this.categoryId = categoryId;
     }
 }

@@ -2,29 +2,39 @@ package com.kaini.teachingmanager.dao;
 
 import com.kaini.teachingmanager.mapper.FileMapper;
 import com.kaini.teachingmanager.pojo.File;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.entity.Example;
+
+import java.util.List;
 
 @Repository
 public class FileDao {
     @Autowired
     private FileMapper fileMapper;
 
-    //通过主键获得文件
-    public File selectAllFile(int id){
-        return fileMapper.selectByPrimaryKey(id);
-    }
-
+    /**
+     * 方法描述
+     * @ 通过名字模糊查询文件
+     * @return 
+     * @date 2020/2/25
+     */
     public File findFileByName(String name){
         Example example = new Example(File.class);
-        example.createCriteria().andEqualTo("name",name);
+        Example.Criteria criteria = example.createCriteria();
+        if (StringUtils.isNotBlank(name)){
+            criteria.andLike("name","%" + name +"%");
+        }
         return fileMapper.selectOneByExample(example);
     }
 
-    //通过主键删除文件
-    public int removeById(int id){
-        return fileMapper.deleteByPrimaryKey(id);
+    //通过主键批量删除文件
+    public int removeById(@Param("id") List<Long> ids){
+        Example example = new Example(File.class);
+        example.createCriteria().andIn("id",ids);
+        return fileMapper.deleteByExample(example);
     }
 
 
@@ -37,18 +47,23 @@ public class FileDao {
         }
     }
 
-    //通过用户id删除一个文件
-    public int deleteFileByUserId(int userId){
-        Example example = new Example(File.class);
-        example.createCriteria().andEqualTo(userId);
-        return fileMapper.deleteByExample(example);
-    }
-
-    //通过分类编号删除一个文件
+    //通过分类编号删除文件
     public int deleteFileByCategoryId(int categoryId){
         Example example = new Example(File.class);
         example.createCriteria().andEqualTo(categoryId);
         return fileMapper.deleteByExample(example);
+    }
+
+    /**
+     * 方法描述
+     * @ 通过分类编号查找文件
+     * @return
+     * @date 2020/2/25
+     */
+    public List<File> selectFileByCategoryId(Long categoryId){
+        Example example = new Example(File.class);
+        example.createCriteria().andEqualTo(categoryId);
+        return fileMapper.selectByExample(example);
     }
 
 }

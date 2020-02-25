@@ -6,9 +6,9 @@
       WARNING - @mbg.generated
     -->
     <id column="point_id" jdbcType="BIGINT" property="pointId" />
-    <id column="category_id" jdbcType="BIGINT" property="categoryId" />
     <result column="point_name" jdbcType="VARCHAR" property="pointName" />
     <result column="point_desc" jdbcType="VARCHAR" property="pointDesc" />
     <result column="point_importance" jdbcType="BIGINT" property="pointImportance" />
+    <result column="category_id" jdbcType="BIGINT" property="categoryId" />
   </resultMap>
 </mapper>

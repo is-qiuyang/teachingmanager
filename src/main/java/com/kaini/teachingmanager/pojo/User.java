@@ -40,7 +40,7 @@ public class User {
     /**
      * 入学时间，不允许为空
      */
-    private String enrollmenttime;
+    private Long enrollmenttime;
 
     /**
      * 用户电话，不允许为空
@@ -180,7 +180,7 @@ public class User {
      *
      * @return enrollmenttime - 入学时间，不允许为空
      */
-    public String getEnrollmenttime() {
+    public Long getEnrollmenttime() {
         return enrollmenttime;
     }
 
@@ -189,8 +189,8 @@ public class User {
      *
      * @param enrollmenttime 入学时间，不允许为空
      */
-    public void setEnrollmenttime(String enrollmenttime) {
-        this.enrollmenttime = enrollmenttime == null ? null : enrollmenttime.trim();
+    public void setEnrollmenttime(Long enrollmenttime) {
+        this.enrollmenttime = enrollmenttime;
     }
 
     /**

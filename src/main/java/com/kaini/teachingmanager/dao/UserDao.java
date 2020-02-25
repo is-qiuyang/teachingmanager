@@ -19,7 +19,7 @@ public class UserDao {
     public List<User> selectIdentityByIdPwd(String loginname, String pwd){
 
         Example userExample = new Example(User.class);
-        userExample.createCriteria().andEqualTo(loginname).andEqualTo(pwd);
+        userExample.createCriteria().andEqualTo("loginname",loginname).andEqualTo("pwd",pwd);
         //去重
         userExample.setDistinct(true);
         return userMapper.selectByExample(userExample);
@@ -48,7 +48,7 @@ public class UserDao {
      */
     public Integer DeleteUserByName(String name) {
         Example userExample = new Example(User.class);
-        userExample.createCriteria().andEqualTo(name);
+        userExample.createCriteria().andEqualTo("name",name);
         return userMapper.deleteByExample(userExample);
     }
 

@@ -12,8 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
-import java.time.Period;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -87,15 +85,21 @@ public class UserServiceImpl implements UserService {
         List<User> users = userDao.selectAllUser();
         List<Long> enrollmenttimeList = new ArrayList<>();
         for(User user : users){
-            String enrollmenttime = user.getEnrollmenttime();
-            long clock = insertTiemer(enrollmenttime);
-            log.info("还有："+clock+"年");
-            if (clock<0 && clock>4){
-                Long id = user.getId();
-                enrollmenttimeList.add(id);
+            //身份是学生才会被删除
+            if(user.getIdentity()==1) {
+                Long enrollmenttime = user.getEnrollmenttime();
+                long clock = insertTiemer(enrollmenttime);
+                log.info("还有：" + clock + "年");
+                if (clock < 0 || clock > 4) {
+                    Long id = user.getId();
+                    enrollmenttimeList.add(id);
+                }
             }
         }
-        log.info("testListSize:"+enrollmenttimeList.size()+"删除成功："+userDao.deleteAllUser(enrollmenttimeList));
+        if(enrollmenttimeList.size()==0){
+            return 0;
+        }
+        log.info("testList:"+enrollmenttimeList.size()+"删除成功："+userDao.deleteAllUser(enrollmenttimeList));
         return userDao.deleteAllUser(enrollmenttimeList);
     }
 
@@ -105,20 +109,13 @@ public class UserServiceImpl implements UserService {
      * @return long
      * @date 2020/2/8
      */
-    public long insertTiemer(String enrollmenttime){
+    public long insertTiemer(Long enrollmenttime){
         //获取当前系统时间
         LocalDateTime endTime =LocalDateTime.now();
-        //将输入的时间转化为localDateTime
-        //String转化为LocalDataTime
-        LocalDateTime nowTime = LocalDateTime.parse(enrollmenttime, DateTimeFormatter.ofPattern("yyyy"));
-        //时间差
-        Period period = Period.between(nowTime.toLocalDate(),endTime.toLocalDate());
-        //相差的年数
-        long periodYears = period.getYears();
-        //相差分钟数，用于测试
-        //long durationminutes = duration.toMinutes();
+        long endTimeYear = endTime.getYear();
+        long Years = endTimeYear-enrollmenttime;
 
-        return periodYears;
+        return Years;
     }
 
 }

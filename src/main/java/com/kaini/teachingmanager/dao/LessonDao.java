@@ -57,11 +57,8 @@ public class LessonDao {
         Example example = new Example(Lesson.class);
         Example.Criteria criteria = example.createCriteria();
         if (StringUtils.isNotBlank(type)){
-            type = "%" + type +"%";
+            criteria.andLike("type","%" + type +"%");
         }
-        if (StringUtils.isNotBlank(type)){
-            criteria.andLike("type",type);
-        }
-        return lessonMapper.selectByExample(criteria);
+        return lessonMapper.selectByExample(example);
     }
 }

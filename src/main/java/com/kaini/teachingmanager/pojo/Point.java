@@ -12,10 +12,6 @@ public class Point {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pointId;
 
-    @Id
-    @Column(name = "category_id")
-    private Long categoryId;
-
     /**
      * 知识点名称
      */
@@ -34,6 +30,9 @@ public class Point {
     @Column(name = "point_importance")
     private Long pointImportance;
 
+    @Column(name = "category_id")
+    private Long categoryId;
+
     /**
      * 获取知识点ID
      *
@@ -50,20 +49,6 @@ public class Point {
      */
     public void setPointId(Long pointId) {
         this.pointId = pointId;
-    }
-
-    /**
-     * @return category_id
-     */
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    /**
-     * @param categoryId
-     */
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
     }
 
     /**
@@ -118,5 +103,19 @@ public class Point {
      */
     public void setPointImportance(Long pointImportance) {
         this.pointImportance = pointImportance;
+    }
+
+    /**
+     * @return category_id
+     */
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    /**
+     * @param categoryId
+     */
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 }

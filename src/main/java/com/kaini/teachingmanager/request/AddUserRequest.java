@@ -29,7 +29,7 @@ public class AddUserRequest {
     /**
      * 入学时间，不允许为空
      */
-    private String enrollmenttime;
+    private Long enrollmenttime;
 
     /**
      * 用户电话，不允许为空
@@ -67,7 +67,7 @@ public class AddUserRequest {
         this.email = email;
     }
 
-    public void setEnrollmenttime(String enrollmenttime) {
+    public void setEnrollmenttime(Long enrollmenttime) {
         this.enrollmenttime = enrollmenttime;
     }
 
@@ -103,7 +103,7 @@ public class AddUserRequest {
         return email;
     }
 
-    public String getEnrollmenttime() {
+    public Long getEnrollmenttime() {
         return enrollmenttime;
     }
 
