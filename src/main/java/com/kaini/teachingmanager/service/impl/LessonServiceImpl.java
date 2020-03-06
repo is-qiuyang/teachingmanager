@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.kaini.teachingmanager.dao.LessonDao;
 import com.kaini.teachingmanager.pojo.Lesson;
 import com.kaini.teachingmanager.request.AddLessonRequest;
+import com.kaini.teachingmanager.request.GetAllLessonRequest;
 import com.kaini.teachingmanager.service.LessonService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,10 @@ public class LessonServiceImpl implements LessonService {
     private LessonDao lessonDao;
 
     @Override
-    public List<Lesson> findAllLesson(Integer pageSize, Integer pageNumber) {
+    public List<Lesson> findAllLesson(GetAllLessonRequest getAllLessonRequest) {
         //开始分页，必须写在上面
-
+        Integer pageNumber = getAllLessonRequest.getPageNumber();
+        Integer pageSize = getAllLessonRequest.getPageSize();
         PageHelper.startPage(pageNumber,pageSize);
         List<Lesson> all = lessonDao.selectAllLesson();
         PageInfo<Lesson> pageInfo=new PageInfo<>(all);

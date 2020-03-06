@@ -3,9 +3,10 @@ package com.kaini.teachingmanager.service.impl;
 
 import com.kaini.teachingmanager.dao.UserDao;
 import com.kaini.teachingmanager.pojo.User;
-import com.kaini.teachingmanager.request.AddUserRequest;
+import com.kaini.teachingmanager.request.UpdataUserRequest;
 import com.kaini.teachingmanager.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,6 @@ import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -37,19 +37,9 @@ public class UserServiceImpl implements UserService {
 
     //用户注册
     @Override
-    public Integer insertUser(AddUserRequest userRequest) {
-        User user = new User();
-        user.setName(userRequest.getName());
-        user.setLoginname(userRequest.getLoginname());
-        user.setPwd(userRequest.getPwd());
-        user.setImg(userRequest.getImg());
-        user.setEmail(userRequest.getEmail());
-        user.setEnrollmenttime(userRequest.getEnrollmenttime());
-        user.setMobile(userRequest.getMobile());
-        user.setCreatetime(new Date());
-        user.setLastlogintime(new Date());
-        user.setIdentity(userRequest.getIdentity());
-        user.setSex(userRequest.getSex());
+    public Integer insertUser(User user) {
+
+
         return userDao.insertUser(user);
     }
 
@@ -79,7 +69,14 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-   //每年九月一日更新 @Scheduled(cron = "0 0 0 1 9 ? *")
+    @Override
+    public boolean updateUserById(UpdataUserRequest userRequest, Long id) {
+        User user = userDao.selectSomeUser(id);
+        BeanUtils.copyProperties(userRequest,user);
+        return userDao.updateUserById(user);
+    }
+
+    //每年九月一日更新 @Scheduled(cron = "0 0 0 1 9 ? *")
    @Scheduled(cron = "0/59 * * * * *")
     public int updataClockById() {
         List<User> users = userDao.selectAllUser();

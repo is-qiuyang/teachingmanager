@@ -74,4 +74,16 @@ public class UserDao {
         userExample.createCriteria().andIn("id",ids);
         return userMapper.deleteByExample(userExample);
     }
+
+    public User selectSomeUser(Long id) {
+        return userMapper.selectByPrimaryKey(id);
+    }
+
+    public boolean updateUserById(User user) {
+        if(userMapper.updateByPrimaryKey(user)==1){
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

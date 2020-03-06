@@ -14,19 +14,8 @@ public class SelectByIdPwdRequest {
      */
     private String pwd;
 
-    public String getLoginname() {
-        return loginname;
-    }
-
-    public void setLoginname(String loginname) {
-        this.loginname = loginname;
-    }
-
-    public String getPwd() {
-        return pwd;
-    }
-
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
-    }
+    /**
+     * 身份验证(1-学生，0-管理员，2-老师)，不允许为空
+     */
+    private Short identity;
 }

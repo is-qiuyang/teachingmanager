@@ -3,6 +3,7 @@ package com.kaini.teachingmanager.controller;
 import com.kaini.teachingmanager.common.SzpJsonResult;
 import com.kaini.teachingmanager.pojo.Lesson;
 import com.kaini.teachingmanager.request.AddLessonRequest;
+import com.kaini.teachingmanager.request.GetAllLessonRequest;
 import com.kaini.teachingmanager.service.LessonService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,8 @@ public class LessonController {
      */
     @ApiOperation(value = "分页查询所有课程")
     @PostMapping("all/test")
-    public SzpJsonResult<Lesson> getAllLesson(@RequestBody Integer pageSize, Integer pageNumber){
-        return SzpJsonResult.ok(lessonService.findAllLesson(pageSize,pageNumber));
+    public SzpJsonResult<Lesson> getAllLesson(@RequestBody GetAllLessonRequest getAllLessonRequest) {
+        return SzpJsonResult.ok(lessonService.findAllLesson(getAllLessonRequest));
     }
     
     /**
