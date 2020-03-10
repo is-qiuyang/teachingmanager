@@ -12,8 +12,10 @@ public class MvcInterceptorConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 实现WebMvcConfigurer不会导致静态资源被拦截
+        //将swagger的访问路径放行
         registry.addInterceptor(new ControllerInterceptor())
-                .addPathPatterns("/**");
+                .addPathPatterns("/**")
+                .excludePathPatterns("/swagger-resources/**", "/webjars/**", "/v2/**", "/swagger-ui.html/**");
     }
 }
 //public class MvcInterceptorConfig extends WebMvcConfigurerAdapter {
