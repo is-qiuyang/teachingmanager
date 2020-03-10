@@ -3,6 +3,7 @@ package com.kaini.teachingmanager.dao;
 
 import com.kaini.teachingmanager.mapper.UserMapper;
 import com.kaini.teachingmanager.pojo.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.entity.Example;
@@ -10,6 +11,7 @@ import tk.mybatis.mapper.entity.Example;
 import java.util.List;
 
 @Repository
+@Slf4j
 public class UserDao {
     @Autowired
     private UserMapper userMapper;
@@ -80,7 +82,9 @@ public class UserDao {
     }
 
     public boolean updateUserById(User user) {
-        if(userMapper.updateByPrimaryKey(user)==1){
+        Example userExample = new Example(User.class);
+        userExample.createCriteria().andEqualTo("id",user.getId());
+        if(userMapper.updateByExampleSelective(user,userExample)==1){
             return true;
         }else {
             return false;

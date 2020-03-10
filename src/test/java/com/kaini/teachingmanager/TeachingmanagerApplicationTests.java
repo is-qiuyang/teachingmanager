@@ -20,7 +20,7 @@ class TeachingmanagerApplicationTests {
         User user =new User();
         user.setName("asd");
         user.setPwd("qwdqs");
-        String token = tokenService.getToken(user);
+        String token = tokenService.getToken(user.getName());
         System.out.println(token);
     }
 

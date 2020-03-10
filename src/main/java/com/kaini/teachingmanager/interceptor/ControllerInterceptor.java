@@ -1,6 +1,7 @@
 package com.kaini.teachingmanager.interceptor;
 
 import com.kaini.teachingmanager.annotation.UnInterception;
+import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
+import java.util.Date;
 
 @Slf4j
 @Component
@@ -40,15 +42,17 @@ public class ControllerInterceptor implements HandlerInterceptor {
         //检查是否有passtoken注释，有则跳过认证
         if (method.isAnnotationPresent(UnInterception.class)) {
             log.info("有进行这步");
+            Date expiration = Jwts.claims().getExpiration();
+            log.info("过期时间：",expiration);
             UnInterception passToken = method.getAnnotation(UnInterception.class);
             if (passToken.required()) {
                 return true;
             }
         }
 
-        //
+        //从请求头中拿得到token，则登陆过
         String token = request.getHeader("token");
-        String value = stringRedisTemplate.opsForValue().get("token");
+        String value = stringRedisTemplate.opsForValue().get(token);
         if (StringUtils.isEmpty(value)){
             return false;
         }
