@@ -1,7 +1,10 @@
 package com.kaini.teachingmanager.request;
 
+import lombok.Data;
+
 import javax.persistence.Column;
 
+@Data
 public class AddLessonRequest {
 
     /**
@@ -21,19 +24,7 @@ public class AddLessonRequest {
     /**
      * 年级
      */
-    private String calss;
-
-    public String getType() {
-        return type;
-    }
+    private String lClass;
 
 
-    public String getaText() {
-        return aText;
-    }
-
-
-    public String getCalss() {
-        return calss;
-    }
 }

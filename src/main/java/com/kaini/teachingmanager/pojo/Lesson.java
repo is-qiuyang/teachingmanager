@@ -1,7 +1,7 @@
 package com.kaini.teachingmanager.pojo;
 
-import java.util.Date;
 import javax.persistence.*;
+import java.util.Date;
 
 @Table(name = "lesson")
 public class Lesson {
@@ -33,7 +33,8 @@ public class Lesson {
     /**
      * 年级
      */
-    private String calss;
+    @Column(name = "l_class")
+    private String lClass;
 
     /**
      * 获取课程ID
@@ -110,18 +111,18 @@ public class Lesson {
     /**
      * 获取年级
      *
-     * @return calss - 年级
+     * @return l_class - 年级
      */
-    public String getCalss() {
-        return calss;
+    public String getlClass() {
+        return lClass;
     }
 
     /**
      * 设置年级
      *
-     * @param calss 年级
+     * @param lClass 年级
      */
-    public void setCalss(String calss) {
-        this.calss = calss == null ? null : calss.trim();
+    public void setlClass(String lClass) {
+        this.lClass = lClass == null ? null : lClass.trim();
     }
 }

@@ -13,7 +13,9 @@ public interface UserService {
 
     int updateLastLoginTime(User user);
 
-    Integer DeleteUserByName(String name);
+    Integer DeleteUserById(Long id);
 
-    boolean updateUserById(UpdataUserRequest userRequest, Long id);
+    boolean updateUserById(UpdataUserRequest userRequest);
+
+    User selectById(Long id);
 }

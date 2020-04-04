@@ -3,6 +3,6 @@ package com.kaini.teachingmanager.request;
 import lombok.Data;
 
 @Data
-public class GetAllLessonRequest {
-    Integer pageNumber ;
+public class FindFileByNameRequest {
+    private String name;
 }

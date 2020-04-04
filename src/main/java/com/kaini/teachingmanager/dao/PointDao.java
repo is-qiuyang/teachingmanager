@@ -32,7 +32,7 @@ public class PointDao {
      */
     public Integer removePointByIds(List<Long> ids){
         Example example = new Example(Point.class);
-        example.createCriteria().andIn("id",ids);
+        example.createCriteria().andIn("pointId",ids);
         return pointMapper.deleteByExample(example);
     }
 
@@ -45,7 +45,9 @@ public class PointDao {
      * @return 是否更新成功
      */
     public boolean updateNameById(Point point){
-        if(pointMapper.updateByPrimaryKey(point)==1){
+        Example example = new Example(Point.class);
+        example.createCriteria().andEqualTo("pointId",point.getPointId());
+        if(pointMapper.updateByExampleSelective(point,example)==1){
             return true;
         }else {
             return false;
@@ -75,7 +77,7 @@ public class PointDao {
     }
 
     //通过分类编号删除重点
-    public int deletePointByCategoryId(int categoryId){
+    public int deletePointByCategoryId(Long categoryId){
         Example example = new Example(Point.class);
         example.createCriteria().andEqualTo("categoryId",categoryId);
         return pointMapper.deleteByExample(example);

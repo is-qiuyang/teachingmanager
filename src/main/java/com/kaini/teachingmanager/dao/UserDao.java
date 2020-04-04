@@ -48,10 +48,8 @@ public class UserDao {
      * @return
      * @date 2020/2/12
      */
-    public Integer DeleteUserByName(String name) {
-        Example userExample = new Example(User.class);
-        userExample.createCriteria().andEqualTo("name",name);
-        return userMapper.deleteByExample(userExample);
+    public Integer DeleteUserById(Long id) {
+        return userMapper.deleteByPrimaryKey(id);
     }
 
     /**
@@ -77,10 +75,6 @@ public class UserDao {
         return userMapper.deleteByExample(userExample);
     }
 
-    public User selectSomeUser(Long id) {
-        return userMapper.selectByPrimaryKey(id);
-    }
-
     public boolean updateUserById(User user) {
         Example userExample = new Example(User.class);
         userExample.createCriteria().andEqualTo("id",user.getId());
@@ -89,5 +83,9 @@ public class UserDao {
         }else {
             return false;
         }
+    }
+
+    public User selectById(Long id) {
+        return userMapper.selectByPrimaryKey(id);
     }
 }

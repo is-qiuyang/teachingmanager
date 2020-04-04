@@ -8,10 +8,10 @@ import com.kaini.teachingmanager.request.AddLessonRequest;
 import com.kaini.teachingmanager.request.GetAllLessonRequest;
 import com.kaini.teachingmanager.service.LessonService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -22,9 +22,9 @@ public class LessonServiceImpl implements LessonService {
 
     @Override
     public List<Lesson> findAllLesson(GetAllLessonRequest getAllLessonRequest) {
+        Integer pageSize = 6 ;
         //开始分页，必须写在上面
         Integer pageNumber = getAllLessonRequest.getPageNumber();
-        Integer pageSize = getAllLessonRequest.getPageSize();
         PageHelper.startPage(pageNumber,pageSize);
         List<Lesson> all = lessonDao.selectAllLesson();
         PageInfo<Lesson> pageInfo=new PageInfo<>(all);
@@ -37,10 +37,7 @@ public class LessonServiceImpl implements LessonService {
     @Override
     public Integer insertLesson(AddLessonRequest lessonRequest) {
         Lesson lesson = new Lesson();
-        lesson.setType(lessonRequest.getType());
-        lesson.setaText(lessonRequest.getaText());
-        lesson.setCreateDate(new Date());
-        lesson.setCalss(lessonRequest.getCalss());
+        BeanUtils.copyProperties(lessonRequest,lesson);
         return lessonDao.insertLesson(lesson);
     }
 

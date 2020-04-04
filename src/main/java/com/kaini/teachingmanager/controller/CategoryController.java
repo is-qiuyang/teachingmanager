@@ -3,6 +3,10 @@ package com.kaini.teachingmanager.controller;
 
 import com.kaini.teachingmanager.common.SzpJsonResult;
 import com.kaini.teachingmanager.pojo.Category;
+import com.kaini.teachingmanager.request.AddRequest;
+import com.kaini.teachingmanager.request.IdsListRequest;
+import com.kaini.teachingmanager.request.SelectCateByLessonIdRequest;
+import com.kaini.teachingmanager.request.UpdateRequest;
 import com.kaini.teachingmanager.service.CategoryService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -18,22 +22,22 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @ApiOperation(value = "新增一个章节")
-    @RequestMapping(value = "/category/{name}", method = RequestMethod.POST)
-    public SzpJsonResult<String> add(@PathVariable("name") String name,long lessonId) {
-        return SzpJsonResult.ok(categoryService.insert(name,lessonId));
+    @RequestMapping(value = "/category/add", method = RequestMethod.POST)
+    public SzpJsonResult<String> add(@RequestBody AddRequest request) {
+        return SzpJsonResult.ok(categoryService.insert(request.getName(),request.getLessonId()));
     }
 
     @ApiOperation(value = "更新章节名称")
-    @RequestMapping(value = "/category/update{id}", method = RequestMethod.PUT)
-    public SzpJsonResult<String> update(@PathVariable("id") long id, String categoryName) {
-        boolean isSuccess = categoryService.update(id, categoryName);
+    @RequestMapping(value = "/category/update", method = RequestMethod.PUT)
+    public SzpJsonResult<String> update(@RequestBody UpdateRequest request) {
+        boolean isSuccess = categoryService.update(request.getId(), request.getCategoryName());
         return SzpJsonResult.ok(isSuccess);
     }
 
     @ApiOperation(value = "批量删除章节")
     @RequestMapping(value = "/category/deleteSome", method = RequestMethod.POST)
-    public SzpJsonResult<String> remove(@RequestBody List<Long> ids) {
-        Integer integer = categoryService.remove(ids);
+    public SzpJsonResult<String> remove(@RequestBody IdsListRequest request) {
+        Integer integer = categoryService.remove(request.getIds());
         if (integer>0){
             return SzpJsonResult.ok("成功删除"+integer+"个章节");
         }
@@ -49,8 +53,8 @@ public class CategoryController {
      */
     @ApiOperation(value = "通过课程ID查询所有章节")
     @RequestMapping(value = "/category/selectAll", method = RequestMethod.POST)
-    public List<Category> selectCateByLessonId(@RequestBody Long lessonId){
-        return categoryService.selectCateByLessonId(lessonId);
+    public List<Category> selectCateByLessonId(@RequestBody SelectCateByLessonIdRequest request){
+        return categoryService.selectCateByLessonId(request.getLessonId());
     }
 
     /**
@@ -60,10 +64,11 @@ public class CategoryController {
      * @date 2020/2/25
      */
     @ApiOperation(value ="通过lessonId删除")
-    @DeleteMapping("delete/CategoryByLessonId")
-    public SzpJsonResult<String> removeCategoryByLessonId(Long lessonId){
-        if (categoryService.removeCategoryByLessonId(lessonId)==1){
-            return SzpJsonResult.ok("成功删除");
+    @PostMapping("delete/CategoryByLessonId")
+    public SzpJsonResult<String> removeCategoryByLessonId(@RequestBody SelectCateByLessonIdRequest request){
+        Integer integer = categoryService.removeCategoryByLessonId(request.getLessonId());
+        if (integer>=1){
+            return SzpJsonResult.ok("成功删除"+integer+"个章节");
         }
         return SzpJsonResult.ok("删除失败");
     }

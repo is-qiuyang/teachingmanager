@@ -42,7 +42,7 @@ public class CategoryDao {
      */
     public Integer removeCategoryByIds(List<Long> ids){
         Example example = new Example(Category.class);
-        example.createCriteria().andIn("id",ids);
+        example.createCriteria().andIn("categoryId",ids);
         return categoryMapper.deleteByExample(example);
     }
 

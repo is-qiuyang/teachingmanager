@@ -3,9 +3,9 @@ package com.kaini.teachingmanager.request;
 import lombok.Data;
 
 import javax.persistence.Column;
-
 @Data
-public class InsertPointRequest {
+public class UpdateByIdRequest {
+    private Long pointId;
 
     private Long categoryId;
 
@@ -26,6 +26,5 @@ public class InsertPointRequest {
      */
     @Column(name = "point_importance")
     private Long pointImportance;
-
 
 }

@@ -10,7 +10,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -61,19 +60,22 @@ public class UserServiceImpl implements UserService {
      * @date 2020/2/12
      */
     @Override
-    public Integer DeleteUserByName(String name) {
-        if(StringUtils.isEmpty(name)){
-            return -1;
-        }else {
-            return userDao.DeleteUserByName(name);
-        }
+    public Integer DeleteUserById(Long id) {
+
+        return userDao.DeleteUserById(id);
+
     }
 
     @Override
-    public boolean updateUserById(UpdataUserRequest userRequest, Long id) {
-        User user = userDao.selectSomeUser(id);
+    public boolean updateUserById(UpdataUserRequest userRequest) {
+        User user = new User();
         BeanUtils.copyProperties(userRequest,user);
         return userDao.updateUserById(user);
+    }
+
+    @Override
+    public User selectById(Long id) {
+        return userDao.selectById(id);
     }
 
     //每年九月一日更新 @Scheduled(cron = "0 0 0 1 9 ? *")

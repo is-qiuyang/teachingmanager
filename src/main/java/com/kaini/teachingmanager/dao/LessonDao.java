@@ -43,7 +43,7 @@ public class LessonDao {
      */
     public Integer deleteAllLesson(List<Long> ids) {
         Example example = new Example(Lesson.class);
-        example.createCriteria().andIn("lesson_id", ids);
+        example.createCriteria().andIn("lessonId", ids);
         return lessonMapper.deleteByExample(example);
     }
 

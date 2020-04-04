@@ -2,6 +2,7 @@ package com.kaini.teachingmanager.service;
 
 import com.kaini.teachingmanager.pojo.Point;
 import com.kaini.teachingmanager.request.InsertPointRequest;
+import com.kaini.teachingmanager.request.UpdateByIdRequest;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +33,7 @@ public interface PointService {
      *
      * @return 是否更新成功
      */
-    boolean updateNameById(InsertPointRequest pointRequest,Long pointId);
+    boolean updateNameById(UpdateByIdRequest pointRequest);
 
     /**
      * 方法描述
@@ -43,5 +44,5 @@ public interface PointService {
     List<Point> selectPointByCategoryId(Long categoryId);
 
     //通过分类编号删除重点
-    Integer deletePointByCategoryId(int categoryId);
+    Integer deletePointByCategoryId(Long categoryId);
 }

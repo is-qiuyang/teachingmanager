@@ -4,6 +4,8 @@ import com.kaini.teachingmanager.common.SzpJsonResult;
 import com.kaini.teachingmanager.pojo.Lesson;
 import com.kaini.teachingmanager.request.AddLessonRequest;
 import com.kaini.teachingmanager.request.GetAllLessonRequest;
+import com.kaini.teachingmanager.request.IdsListRequest;
+import com.kaini.teachingmanager.request.SelectLikeLessonRequest;
 import com.kaini.teachingmanager.service.LessonService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +41,12 @@ public class LessonController {
      */
     @ApiOperation(value = "插入课程")
     @PostMapping("insert/test")
-    public String insertLesson(@RequestBody AddLessonRequest lessonRequest){
+    public SzpJsonResult<String> insertLesson(@RequestBody AddLessonRequest lessonRequest){
 
         if (lessonService.insertLesson(lessonRequest).equals(1)){
-            return "添加课程成功";
+            return SzpJsonResult.ok("添加课程成功");
         }else {
-            return "添加课程失败，请重新添加";
+            return SzpJsonResult.errorMsg("添加课程失败，请重新添加");
         }
     }
 
@@ -56,8 +58,8 @@ public class LessonController {
      */
     @ApiOperation(value = " 批量删除课程")
     @PostMapping("delete/someTest")
-    public SzpJsonResult<String> deleteAllLesson(@RequestBody List<Long> ids){
-        Integer integer = lessonService.deleteAllLesson(ids);
+    public SzpJsonResult<String> deleteAllLesson(@RequestBody IdsListRequest request){
+        Integer integer = lessonService.deleteAllLesson(request.getIds());
         if (integer>0){
             return SzpJsonResult.ok("成功删除"+integer+"门课程");
         }
@@ -72,7 +74,8 @@ public class LessonController {
      */
     @ApiOperation(value = "通过课程名模糊查询课程")
     @PostMapping("get/likeTest")
-    public List<Lesson> selectLikeLesson(@RequestBody String type){
-        return lessonService.selectLikeLesson(type);
+    public SzpJsonResult<List<Lesson>> selectLikeLesson(@RequestBody SelectLikeLessonRequest  request){
+        List<Lesson> lessons = lessonService.selectLikeLesson(request.getType());
+        return SzpJsonResult.ok(lessons);
     }
 }
